@@ -9,8 +9,11 @@ Officers running transaction_vis.py will be able to view a   visualization of em
 There will also be a visualization in business_view.py that allows the officer to view a map of Abila and click on a specific business in order to view information regarding its customers and transactions. 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees, search by employee ID, and move through time with a slider to observe daily routines. This visualization is live at https://sofiabaptista.shinyapps.io/sin2/
 =======
+=======
+>>>>>>> Stashed changes
 A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees.
 
 
@@ -18,4 +21,7 @@ Dependencies needed:
 pandas
 tkinter
 graphics (included in file)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
