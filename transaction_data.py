@@ -49,7 +49,7 @@ for location in coords.keys():
             total_transactions_cc = df_location_cc.shape[0]
             total_spent_cc = df_location_cc['price'].sum()
 
-            df_new_loyalty = loyalty_data[(pd.to_datetime(loyalty_data['timestamp']) > str(date)) & (pd.to_datetime(loyalty_data['timestamp']) < str(dates[i+1]))]
+            df_new_loyalty = loyalty_data[(pd.to_datetime(loyalty_data['timestamp']) == str(date))]
             df_location_loyalty = df_new_loyalty[df_new_loyalty['location'] == location]
             total_transactions_loyalty = df_location_loyalty.shape[0]
             total_spent_loyalty = df_location_loyalty['price'].sum()

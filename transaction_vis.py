@@ -1,3 +1,6 @@
+"""
+This document contains the main code to run our visualization for the transaction data.
+"""
 import pandas as pd
 from business_coords import coords
 from graphics import *
@@ -19,30 +22,30 @@ current_mode = "cc" #either cc or loyalty
 
 #draw the window and the image
 #767, 1534
-win1 = GraphWin("Purchases", 1369.5,820)
-win1.setCoords(0,1640,2739,0)
-myImage = Image(Point(1369.5,767), './Data/MC2-tourist.png')
-myImage.draw(win1)
+win = GraphWin("Purchases", 1369.5,820)
+win.setCoords(0,1640,2739,0)
+myImage = Image(Point(1369.5,767), './Data/MC2-tourist2.png')
+myImage.draw(win)
 
 #draw the time bar
-Line(Point(0,1534),Point(2739,1534)).draw(win1)
+Line(Point(0,1534),Point(2739,1534)).draw(win)
 for i in range(1,15):
-    Line(Point(i*(2739/15),1534), Point(i*(2739/15),1640)).draw(win1)
+    Line(Point(i*(2739/15),1534), Point(i*(2739/15),1640)).draw(win)
     if i == 1:
-        Text(Point(i*(2739/15)-91.3,1587), "ALL TIME").draw(win1)
+        Text(Point(i*(2739/15)-91.3,1587), "ALL TIME").draw(win)
     else:
-        Text(Point(i*(2739/15)-91.3,1587), "1/{}".format(str(i+4))).draw(win1)
-Text(Point(15*(2739/15)-91.3,1587), "1/19").draw(win1)
+        Text(Point(i*(2739/15)-91.3,1587), "1/{}".format(str(i+4))).draw(win)
+Text(Point(15*(2739/15)-91.3,1587), "1/19").draw(win)
 
 #draw the credit card vs loyalty switch
 rec1 = Rectangle(Point(1600,25), Point(2000,125))
 rec1.setOutline("black")
-rec1.draw(win1)
+rec1.draw(win)
 rec2 = Rectangle(Point(2000,25), Point(2400,125))
 rec2.setOutline("black")
-rec2.draw(win1)
-tex1 = Text(Point(1800,75), "SHOW CREDIT CARD DATA").draw(win1)
-tex2 = Text(Point(2200,75), "SHOW LOYALTY DATA").draw(win1)
+rec2.draw(win)
+tex1 = Text(Point(1800,75), "SHOW CREDIT CARD DATA").draw(win)
+tex2 = Text(Point(2200,75), "SHOW LOYALTY DATA").draw(win)
 
 
 #make a list of circles for each location
@@ -56,24 +59,31 @@ for location in coords.keys():
 def update_circles():
     
     if current_date_number != None:
-        print("HI")
+       
         #get date
         date = dates[current_date_number]
+
+        divide_by = 1
+        color_multiplier = 10
+
+        if current_date_number == 0:
+            divide_by = 3
+            color_multiplier = 1
+
         #undraw everything else
         for item in circles.values():
             item.undraw()
 
         #draw the circles based on total money spent
         for location in circles.keys():
-            circles[location] = Circle(coords[location], math.sqrt(data[location][str(date)][current_mode]["total_spent"])/3)
-            circles[location].setFill('red')
-            circles[location].draw(win1)
+            circles[location] = Circle(coords[location], math.sqrt(data[location][str(date)][current_mode]["total_spent"])/divide_by)
+            circles[location].setFill(color_rgb(255-int(data[location][str(date)][current_mode]["total_transactions"])*color_multiplier, 255-int(data[location][str(date)][current_mode]["total_transactions"])*color_multiplier, 255))
+            circles[location].draw(win)
 
 #setup the messages for when hovering over a location
 hover_messages = dict(coords)
 for location in coords.keys():
-    hover_messages[location] = Text(coords[location], location)
-
+    hover_messages[location] = Text(coords[location], "")
 
 #gets the mouse wherever it is hovering
 def motion(event):
@@ -87,16 +97,16 @@ def motion(event):
         drawn = False
         for location in coords.keys():
                 #distance formula    
-                
                 if math.sqrt((x-coords[location].getX())**2+(y-coords[location].getY())**2) < circles[location].getRadius()+5:
-                    hover_messages[location].draw(win1)
+                    hover_messages[location].setText(location+"\n"+str(data[location][str(dates[current_date_number])][current_mode]["total_transactions"])+" transactions"+"\n"+"$"+str(round(data[location][str(dates[current_date_number])][current_mode]["total_spent"]))+" spent")
+                    hover_messages[location].draw(win)
                     drawn = True
         if drawn == False:
             for value in hover_messages.values():
                 value.undraw()
+        
                 
-
-win1.bind('<Motion>', motion)
+win.bind('<Motion>', motion)
 
 
 
@@ -112,7 +122,7 @@ for i in range(0,15):
 #setup mode rectangles
 mode_rect_cc = Rectangle(Point(1600,25), Point(2000,125))
 mode_rect_cc.setFill('yellow')
-mode_rect_cc.draw(win1)
+mode_rect_cc.draw(win)
 mode_rect_loyalty = Rectangle(Point(2000,25), Point(2400,125))
 mode_rect_loyalty.setFill('yellow')
 
@@ -120,7 +130,7 @@ mode_rect_loyalty.setFill('yellow')
 #gets the clicks
 while True:
 
-    mouse = win1.checkMouse()
+    mouse = win.checkMouse()
     if mouse != None:
 
         x = mouse.getX()
@@ -144,7 +154,7 @@ while True:
                             if rect != date_rectangles[i]:
                                 rect.undraw()
 
-                        date_rectangles[i].draw(win1)
+                        date_rectangles[i].draw(win)
                         current_date_number = i
                         update_circles()
 
@@ -156,14 +166,14 @@ while True:
             if 1600 < x < 2000:
                 if current_mode != "cc":
                     current_mode = "cc"
-                    mode_rect_cc.draw(win1)
+                    mode_rect_cc.draw(win)
                     mode_rect_loyalty.undraw()
                     update_circles()
                 
             if 2000 < x < 2400:
                 if current_mode != "loyalty":
                     current_mode = "loyalty"
-                    mode_rect_loyalty.draw(win1)
+                    mode_rect_loyalty.draw(win)
                     mode_rect_cc.undraw()
                     update_circles()
 
