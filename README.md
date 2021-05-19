@@ -8,4 +8,4 @@ Officers running cc_vis.py will be able to view a   visualization of employee cr
 
 There will also be a visualization in business_view.py that allows the officer to view a map of Abila and click on a specific business in order to view information regarding its customers and transactions. 
 
-A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees. 
+A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees, search by employee ID, and move through time with a slider to observe daily routines. This visualization is live at https://sofiabaptista.shinyapps.io/sin2/
