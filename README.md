@@ -4,8 +4,18 @@ We built our system based on the data from Mini-Challenge 2 of the 2021 VAST cha
 
 ## The Visualizations 
 
-Officers running cc_vis.py will be able to view a   visualization of employee credit card transactions. A map of Abila displays where GAStech employees spent money at in the given timeframe, with larger circles indicating more money spent. 
+Officers running transaction_vis.py will be able to view a   visualization of employee credit card and loyalty transactions. A map of Abila displays where GAStech employees spent money at in the given timeframe, with larger circles indicating more money spent. 
 
 There will also be a visualization in business_view.py that allows the officer to view a map of Abila and click on a specific business in order to view information regarding its customers and transactions. 
 
+<<<<<<< Updated upstream
 A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees, search by employee ID, and move through time with a slider to observe daily routines. This visualization is live at https://sofiabaptista.shinyapps.io/sin2/
+=======
+A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees.
+
+
+Dependencies needed:
+pandas
+tkinter
+graphics (included in file)
+>>>>>>> Stashed changes
