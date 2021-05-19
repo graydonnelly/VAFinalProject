@@ -38,13 +38,13 @@ def show_info(location):
     num.draw(win1)
 
     #individual employees that visited location
-    spec_loc.drop_duplicates(subset = 'last4ccnum', keep = 'last', inplace = True)
     spec_loc.drop("timestamp",axis=1,inplace=True)
     spec_loc.drop("price",axis=1,inplace=True)
-    ind_cust = spec_loc.sort_values(by=["last4ccnum"]).to_csv(index=False)
-    ind_cust = ind_num.replace("last4ccnum", "Credit Card #")
-    ind_cust = ind_num.replace(",", ", ") 
-    cust = Text(Point(1350,500), ind_cust)
+    spec_loc.drop_duplicates(subset = None, keep = 'first', inplace = True)
+    spec_loc.sort_values(by=["last4ccnum"]).to_csv(index=False)
+    spec_loc.columns= ["Cred Card #"]
+   
+    cust = Text(Point(1350,500), spec_loc)
     cust.setTextColor('Black')
     cust.draw(win1)
     
