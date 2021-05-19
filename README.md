@@ -17,10 +17,11 @@ A visualization for the geolocation data will allow the officer to view the rout
 A visualization for the geolocation data will allow the officer to view the routes taken by GAStech employees.
 
 
-Dependencies needed:
-pandas
-tkinter
-graphics (included in file)
+## Dependencies needed:
+### Python dependencies
+- [pandas](https://pandas.pydata.org/)
+- [tkinter](https://docs.python.org/3/library/tkinter.html)
+- [graphics](https://github.com/isidonnelly/VAFinalProject/blob/main/graphics.py) (included in file)
 <<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
