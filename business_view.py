@@ -29,6 +29,10 @@ def show_info(location):
     spec_loc.drop("location",axis=1,inplace=True)
     ind_num = spec_loc.sort_values(by=["last4ccnum"]).to_csv(index=False)
     #ind_num.drop("location",axis=1,inplace=True)
+    ind_num = ind_num.replace("last4ccnum", "Credit Card #")
+    ind_num = ind_num.replace("timestamp", "Time")
+    ind_num = ind_num.replace("price", " Price")
+    ind_num = ind_num.replace(",", ", ") 
     num = Text(Point(500, 800),  ind_num )
     num.setTextColor('Black')
     num.draw(win1)
@@ -38,6 +42,8 @@ def show_info(location):
     spec_loc.drop("timestamp",axis=1,inplace=True)
     spec_loc.drop("price",axis=1,inplace=True)
     ind_cust = spec_loc.sort_values(by=["last4ccnum"]).to_csv(index=False)
+    ind_cust = ind_num.replace("last4ccnum", "Credit Card #")
+    ind_cust = ind_num.replace(",", ", ") 
     cust = Text(Point(1350,500), ind_cust)
     cust.setTextColor('Black')
     cust.draw(win1)
@@ -129,6 +135,7 @@ def show_info(location):
             
             ind_spend = ind_loc[ind_loc['last4ccnum'].eq(inputInt)]
             ind_spend = ind_spend.to_csv(index=False)
+            
             ind1 = Text(Point(2250,500), ind_spend)
             ind1.setTextColor('Black')
             ind1.draw(win1)
